@@ -59,18 +59,19 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  var img = "./components/animegirl.jpg";
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <UserImage source={require("./components/animegirl.jpg")}/>
+          <UserImage source={require(img)}/>
         </View>
       </ScrollView>
     </SafeAreaView>
