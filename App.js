@@ -25,6 +25,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import UserImage from './components/UserImage';
+import FeedPage from './pages/FeedPage';
 
 const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -71,7 +72,7 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <UserImage source={require(img)}/>
+          <FeedPage upvotes={69}></FeedPage>
         </View>
       </ScrollView>
     </SafeAreaView>
