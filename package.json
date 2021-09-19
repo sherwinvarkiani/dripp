@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^3.5.2",
+    "base-64": "^1.0.0",
     "buffer": "^6.0.3",
     "react": "17.0.2",
     "react-native": "0.65.1",
@@ -21,7 +22,8 @@
     "react-native-modern-datepicker": "^1.0.0-beta.91",
     "react-native-paper": "^4.9.2",
     "react-native-safe-area-context": "^3.3.2",
-    "react-native-vector-icons": "^8.1.0"
+    "react-native-vector-icons": "^8.1.0",
+    "utf8": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

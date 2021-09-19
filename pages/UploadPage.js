@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Image } from "react-native";
 import { TextInput, Button, Dialog, Portal } from 'react-native-paper';
-// import DateTimePickerModal from "react-native-modal-datetime-picker";
 import DatePicker from 'react-native-modern-datepicker';
 
 import ChooseImage from '../components/ChooseImage';
@@ -23,8 +22,29 @@ const UploadPage = () => {
 		setShowTime(false);
 	};
 
-	const submitDialog = () => {
-		// do push api call here
+	const submitDialog = async () => {
+		const date = new Date();
+		const [h, m] = time.split(":").map(t => parseInt(t, 10));
+		date.setTime(date.getTime() + h * 60 * 60 * 1000 + m * 60 * 1000);
+
+		var formdata = new FormData();
+		formdata.append('image', { uri: resourcePath.assets[0].uri, name: resourcePath.assets[0].fileName, filename: resourcePath.assets[0].fileName, type: resourcePath.assets[0].type });
+		formdata.append('Content-Type', 'image/png');
+		formdata.append("expires", date.getTime());
+		formdata.append("caption", caption);
+
+		var requestOptions = {
+			method: 'POST',
+			body: formdata,
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		};
+
+		fetch("https://dripp-backend-7zptn.ondigitalocean.app/upload/420", requestOptions)
+			.then(response => response.text())
+			.then(result => console.log(result))
+			.catch(error => console.log('error', error));
 
 		setResourcePath({});
 		setCaption('');
@@ -44,8 +64,11 @@ const UploadPage = () => {
 					<Dialog style={{
 						justifyContent: 'center',
 						alignItems: 'center',
-						height: "100%"
-					}} visible={showModal} dismissable={false}>
+						height: "90%"
+					}} visible={showModal} onDismiss={() => {
+						setShowModal(false);
+						setTime('');
+					}}>
 						<Dialog.Content>
 							<Image
 								source={{ uri: resourcePath.assets[0].uri }}
@@ -92,14 +115,6 @@ const UploadPage = () => {
 					</Dialog>
 				</Portal>
 			</View>
-			{/* <DateTimePickerModal
-				isVisible={showTime}
-				mode="time"
-				date={time}
-				onConfirm={handleTime}
-				onCancel={() => { setShowTime(false); }}
-				is24Hour
-			/> */}
 		</>
 	)
 }
