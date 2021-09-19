@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { View, Image, StyleSheet, Text } from 'react-native';
+import { View, Image, StyleSheet, Text, Button, TouchableOpacity } from 'react-native';
 import UserImage from '../components/UserImage';
-import { Button, Overlay } from 'react-native-elements';
+import { Overlay } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+const styles = StyleSheet.create({
+    button: {
+      alignItems: "center",
+      backgroundColor: "#DDDDDD",
+      padding: 10,
+      marginTop: 10
+    },
+  });
 
 const FeedPage = (props) => {
     // Get images from backend somehow
@@ -37,35 +45,43 @@ const FeedPage = (props) => {
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <View style={{ position: 'absolute', left: "80%", top: "65%", zIndex: 1 }}>
-                <Button
-                    icon={
-                        <Icon
-                        name="arrow-up"
-                        size={15}
-                        color="white"
-                        />
-                    }
-                    title="UP"
+            <View
+                style={{ backgroundColor: "#DDDDDD", position: 'absolute', top: '70%', zIndex: 1, left: '5%' }}
+            >
+                <Text>
+                    {props.caption}
+                </Text>
+            </View>
+            
+            <View style={{ position: 'absolute', left: "70%", top: "50%", zIndex: 1, justifyContent: 'space-evenly' }}>
+                <TouchableOpacity
                     onPress={upvote}
-                />
-                <Text>{votes}</Text>
-                <Button
-                    icon={
-                        <Icon
-                        name="arrow-down"
-                        size={15}
-                        color="white"
-                        />
-                    }
-                    title="DOWN"
+                    style={styles.button}
+                >
+                    <Text>UP</Text>
+                </TouchableOpacity>
+
+                <Text style={{ alignSelf: 'center', marginTop: 10, backgroundColor: "#DDDDDD", padding: 10 }}>{votes}</Text>
+
+                <TouchableOpacity
                     onPress={downvote}
-                    style={{position: 'absolute', left: 0}}
-                />
+                    style={styles.button}
+                >
+                    <Text>DOWN</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity
+                    style={styles.button}
+                >
+                    <Text>COMMENTS</Text>
+                </TouchableOpacity>
             </View>
             <UserImage source={require(img)}/>
-            <View style={{ position: 'absolute', left: "5%", top: "5%" }}>
-                <Text>sherlose</Text>
+            <View style={{ position: 'absolute', left: "5%", top: "5%", backgroundColor: "#DDDDDD" }}>
+                <Text>{props.username}</Text>
+            </View>
+            <View style={{ position: 'absolute', left: "75%", top: "5%", backgroundColor: "#DDDDDD" }}>
+                <Text>{props.deletetime}</Text>
             </View>
             
         </View>
