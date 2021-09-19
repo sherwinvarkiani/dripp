@@ -1,50 +1,40 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  FlatList
-} from 'react-native';
+import { FlatList } from 'react-native';
+import { BottomNavigation } from 'react-native-paper';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
 import FeedPage from './pages/FeedPage';
+import UploadPage from './pages/UploadPage';
+
+const FeedRoute = () => (
+  <FlatList
+    data={require('./mockdata.json')}
+    renderItem={({ item }) =>
+      <FeedPage username={item.username} upvotes={item.upvotes} caption={item.caption} deletetime={item.deletetime} />}
+    keyExtractor={item => item._id}
+  />
+);
+
+const UploadRoute = () => <UploadPage />
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'feed', title: 'Feed', icon: 'home' },
+    { key: 'upload', title: 'Upload', icon: 'camera' },
+  ]);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  const data = require('./mockdata.json');
-
-  const renderItem = ({ item }) => (
-    <FeedPage username={item.username} upvotes={item.upvotes} caption={item.caption} deletetime={item.deletetime} />
-  );
+  const renderScene = BottomNavigation.SceneMap({
+    feed: FeedRoute,
+    upload: UploadRoute,
+  });
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item._id}
-      />
-    </SafeAreaView>
+    <BottomNavigation
+      navigationState={{ index, routes }}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+      labeled={false}
+    />
   );
 };
 
