@@ -7,6 +7,9 @@ import UploadPage from './pages/UploadPage';
 
 const FeedRoute = () => (
   <FlatList
+    decelerationRate={0}
+    snapToInterval={417}
+    pagingEnabled
     data={require('./mockdata.json')}
     renderItem={({ item }) =>
       <FeedPage username={item.username} upvotes={item.upvotes} caption={item.caption} deletetime={item.deletetime} />}

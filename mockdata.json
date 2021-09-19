@@ -5,7 +5,8 @@
       "deletetime": "01:14:40",
       "username": "Shawn",
       "upvotes": 432,
-      "caption": "SUSUS AMONGUS"
+      "caption": "SUSUS AMONGUS",
+      "save": false
     },
     {
       "_id": "61466fc8a398720b795cc561",
@@ -14,6 +15,8 @@
       "username": "Hunter",
       "upvotes": 69,
       "caption": "SUSUS AMONGUS"
+      ,
+      "save": true
     },
     {
       "_id": "61466fc8177ecac83b2e049c",
@@ -21,7 +24,8 @@
       "deletetime": "00:00:50",
       "username": "Mcclure",
       "upvotes": 1245312,
-      "caption": "SUSUS AMONGUS"
+      "caption": "SUSUS AMONGUS",
+      "save": false
     },
     {
       "_id": "61466fc8f9b84f76d175702e",
@@ -29,7 +33,8 @@
       "deletetime": "03:11:44",
       "username": "Lynnette",
       "upvotes": 1237774,
-      "caption": "SUSUS AMONGUS"
+      "caption": "SUSUS AMONGUS",
+      "save": true
     },
     {
       "_id": "61466fc8c0c38e226420e6de",
@@ -37,7 +42,8 @@
       "deletetime": "02:01:48",
       "username": "Dennis",
       "upvotes": 61,
-      "caption": "SUSUS AMONGUS"
+      "caption": "SUSUS AMONGUS",
+      "save": true
     },
     {
       "_id": "61466fc86301d39b4a9cb5a8",
@@ -45,6 +51,7 @@
       "deletetime": "18:17:11",
       "username": "Nadia",
       "upvotes": 11,
-      "caption": "SUSUS AMONGUS"
+      "caption": "SUSUS AMONGUS",
+      "save": false
     }
   ]
