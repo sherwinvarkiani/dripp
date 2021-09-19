@@ -39,6 +39,7 @@ const App = () => {
   return (
     <Provider>
       <BottomNavigation
+        barStyle={{ backgroundColor: "#97a4ff" }}
         navigationState={{ index, routes }}
         onIndexChange={setIndex}
         renderScene={renderScene}

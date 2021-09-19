@@ -14,7 +14,8 @@ const FeedPage = (props) => {
     const [showComments, setShowComments] = useState(false);
     const [comment, setComment] = useState('');
     const [timeRemaining, setTimeRemaining] = useState(props.deletetime);
-    const redColor = "#fc0328";
+    const upColor = "#3530d9";
+    const downColor = "#d6d4fa";
 
     const [comments, setComments] = useState(["@" + props.username + ": " + props.caption, "Looking good!", "Love the look", "Where did you buy the fit?", "SHEEEEEESH"]);
 
@@ -103,12 +104,12 @@ const FeedPage = (props) => {
                         <Icon
                             reverse
                             name="arrow-bold-up"
-                            color={upvoted ? redColor : NaN}
+                            color={upvoted ? upColor : NaN}
                             type="entypo"
                         />
                     </TouchableOpacity>
 
-                    <Subheading style={{ alignSelf: 'center', padding: 10, color: 'white' }}>{votes > 1000000 ? (votes / 1000000).toFixed(1) + "M" : votes}</Subheading>
+                    <Subheading style={{ alignSelf: 'center', padding: 10, color: 'white' }}>{votes > 1000000 ? (votes / 1000000).toFixed(1) + "M" : (votes > 1000 ? (votes / 1000).toFixed(1) + "K" : votes)}</Subheading>
 
                     <TouchableOpacity
                         onPress={downvote}
@@ -118,7 +119,7 @@ const FeedPage = (props) => {
                         <Icon
                             reverse
                             name="arrow-bold-down"
-                            color={downvoted ? redColor : NaN}
+                            color={downvoted ? downColor : NaN}
                             type="entypo"
                         />
                     </TouchableOpacity>
