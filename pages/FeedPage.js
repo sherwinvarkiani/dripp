@@ -143,7 +143,7 @@ const FeedPage = (props) => {
                 <Subheading style={{ color: "white" }}>@{props.username}</Subheading>
             </View>
             <View style={{ position: 'absolute', left: "75%", top: "5%" }}>
-                <Subheading style={{ color: timeRemaining.split(":")[1] == 0 ? "red" : "white" }}>{timeRemaining}</Subheading>
+                <Subheading style={{ color: timeRemaining.split(":")[0] === "00" && timeRemaining.split(":")[1] === "00" ? "red" : "white" }}>{timeRemaining}</Subheading>
             </View>
             
         </View>
