@@ -1,10 +1,10 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import { BottomNavigation } from 'react-native-paper';
+import { Provider, BottomNavigation } from 'react-native-paper';
 
 import FeedPage from './pages/FeedPage';
-import HomePage from './pages/HomePage';
 import UploadPage from './pages/UploadPage';
+import ProfilePage from './pages/ProfilePage';
 
 const FeedRoute = () => (
   <FlatList
@@ -20,29 +20,31 @@ const FeedRoute = () => (
 
 const UploadRoute = () => <UploadPage />
 
-const HomeRoute = () => <HomePage />
+const ProfileRoute = () => <ProfilePage />
 
 const App = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'feed', title: 'Feed', icon: 'home' },
-    { key: 'upload', title: 'Upload', icon: 'camera' },
-    { key: 'home', title: 'Home', icon: 'water' },
+    { key: 'upload', title: 'Upload', icon: 'plus-circle-outline' },
+    { key: 'profile', title: 'Profile', icon: 'water' },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
     feed: FeedRoute,
     upload: UploadRoute,
-    home: HomeRoute,
+    profile: ProfileRoute,
   });
 
   return (
-    <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
-      renderScene={renderScene}
-      labeled={false}
-    />
+    <Provider>
+      <BottomNavigation
+        navigationState={{ index, routes }}
+        onIndexChange={setIndex}
+        renderScene={renderScene}
+        labeled={false}
+      />
+    </Provider>
   );
 };
 
