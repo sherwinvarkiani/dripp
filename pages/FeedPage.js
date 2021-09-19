@@ -5,15 +5,6 @@ import { TextInput } from 'react-native-paper';
 import UserImage from '../components/UserImage';
 import { Subheading } from 'react-native-paper';
 
-const styles = StyleSheet.create({
-    button: {
-      alignItems: "center",
-      backgroundColor: "#DDDDDD",
-      padding: 10,
-      marginTop: 10
-    },
-  });
-
 const FeedPage = (props) => {
     // Get images from backend somehow
     var img = "../components/animegirl2.jpg";
@@ -25,19 +16,22 @@ const FeedPage = (props) => {
     const [timeRemaining, setTimeRemaining] = useState(props.deletetime);
     const redColor = "#fc0328";
 
-    // useEffect(() => {
-    //     if (votes == 432) {
-    //     var arr = timeRemaining.split(":");
-    //     var time = arr[0] * 3600 + arr[1] * 60 + arr[2];
-    //     time -= 1;
-    //     var date = new Date(time * 1000);
-    //     var newTime = date.toUTCString().split(" ")[4];
+    const [comments, setComments] = useState(["@" + props.username + ": " + props.caption, "Looking good!", "Love the look", "Where did you buy the fit?", "SHEEEEEESH"]);
+
+    useEffect(() => {
+        var arr = timeRemaining.split(":");
+        var time = parseInt(arr[0]) * 3600 + parseInt(arr[1]) * 60 + parseInt(arr[2]);
+        if (time != 0) {
+            time = time - 1;
+        }
+        var date = new Date(null);
+        date.setSeconds(time);
+        var newTime = date.toISOString().substr(11, 8);
         
-    //     const timer = setTimeout(() => {
-    //         setTimeRemaining(newTime);
-    //     }, 1000);
-    // }
-    // })
+        const timer = setTimeout(() => {
+            setTimeRemaining(newTime);
+        }, 1000);
+    })
 
     const upvote = () => {
         if (downvoted) {
@@ -59,29 +53,41 @@ const FeedPage = (props) => {
             setVotes(votes + (!downvoted ? -1 : 1));
         }
         setDownvoted(!downvoted);
-        
     };
+
+    // console.log(comments);
+
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             {showComments && (
                 <View
                     style={{ width: '100%', height: '60%', position: 'absolute', top: '40%', backgroundColor: "#DDDDDD", zIndex: 1, flex: 1, flexDirection: 'column'}}
                 >
-                    <ScrollView style={{ flex: 1 }}>
+                    <ScrollView style={{ flex: 1 }} nestedScrollEnabled>
+                        {comments.map(message => {
+                            return (
+                                <View key={message} style={{ margin: 5, padding: 5, borderColor: 'black', 'borderWidth': 2, zIndex: 2 }}>
+                                    <Text>{message}</Text>
+                                </View>
+                            );
+                        })}
                     </ScrollView>
                     <TextInput
                         style={{ flex: 1 }}
                         label="Comment"
                         value={comment}
                         onChangeText={comment => setComment(comment)}
+                        onSubmitEditing={comment => {
+                            setComments(comments => [...comments, comment.nativeEvent.text])
+                        }}
                     />
                 </View>
             )}
             {!showComments && (
                 <View
-                    style={{ position: 'absolute', top: '80%', zIndex: 1, left: '5%' }}
+                    style={{ position: 'absolute', top: '75%', zIndex: 1, left: '5%', width: "80%" }}
                 >
-                    <Subheading style={{ color: "white", bottom: 10 }}>
+                    <Subheading numberOfLines={2} style={{ color: "white", bottom: 10 }}>
                         {props.caption}
                     </Subheading>
                 </View>
@@ -92,6 +98,7 @@ const FeedPage = (props) => {
                     <TouchableOpacity
                         onPress={upvote}
                         style={{ alignSelf: 'flex-end' }}
+                        disabled={timeRemaining == "00:00:00"}
                     >
                         <Icon
                             reverse
@@ -106,6 +113,7 @@ const FeedPage = (props) => {
                     <TouchableOpacity
                         onPress={downvote}
                         style={{ alignSelf: 'flex-end' }}
+                        disabled={timeRemaining == "00:00:00"}
                     >
                         <Icon
                             reverse
@@ -120,6 +128,7 @@ const FeedPage = (props) => {
                 <TouchableOpacity
                     style={{ alignSelf: 'flex-end' }}
                     onPress={() => {setShowComments(!showComments);}}
+                    disabled={timeRemaining == "00:00:00"}
                 >
                     <Icon
                         reverse
@@ -134,7 +143,7 @@ const FeedPage = (props) => {
                 <Subheading style={{ color: "white" }}>@{props.username}</Subheading>
             </View>
             <View style={{ position: 'absolute', left: "75%", top: "5%" }}>
-                <Subheading style={{ color: "white" }}>{timeRemaining}</Subheading>
+                <Subheading style={{ color: timeRemaining.split(":")[1] == 0 ? "red" : "white" }}>{timeRemaining}</Subheading>
             </View>
             
         </View>
