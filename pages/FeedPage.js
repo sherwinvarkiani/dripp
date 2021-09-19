@@ -6,20 +6,12 @@ import { TextInput, Card, Subheading, List } from 'react-native-paper';
 import ImageBin from '../components/ImageBin';
 
 const FeedPage = ({ data }) => {
-    // console.log(data.item);
-
-    // return <></>;
-
     const { user_id, img, expires, likes, dislikes, comments: dataComments, caption } = data.item;
-    // console.log("FEED PAGE");
-    // console.log(_id, user_id, expires, likes, dislikes, dataComments, hastags);
-    // console.log(!img || !expires || (!likes && likes !== 0) || (!dislikes && dislikes !== 0) || !dataComments);
 
     if (!img || !expires || (!likes && likes !== 0) || (!dislikes && dislikes !== 0) || !dataComments || !expires) return <></>;
-    // console.log("HAHAHA");
 
     let sec = (new Date(expires).getTime() - new Date().getTime()) / 1000
-    // if (sec < 0) return <></>;
+    if (sec < 0) return <></>;
     const hour = Math.floor(sec / 3600);
     const min = Math.floor(sec % 3600 / 60);
     sec = Math.floor(sec - hour * 3600 - min * 60);
